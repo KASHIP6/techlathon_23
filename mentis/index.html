@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" type="text/css" href="index.css">
+</head>
+<body>
+    <div class="chat-container">
+        <div class="top-bar">
+            <label class="toggle-label">Dark Mode:</label>
+            <div class="toggle-switch">
+                <div class="toggle-slider"></div>
+            </div>
+            <span class="toggle-text" id="mode-text">Off</span>
+        </div>
+        <img src="ncas-naac.png" alt="Chatbot Logo" class="logo">
+        <div class="chat-window" id="chat-window">
+            <!-- Messages will be displayed here -->
+        </div>
+        <div class="input-container">
+            <input type="text" id="user-input" placeholder="Type your message...">
+            <button id="send-button">Send</button>
+        </div>
+    </div>
+    <script src="index.js"></script>
+</body>
+</html>

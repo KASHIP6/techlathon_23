@@ -16,7 +16,7 @@ nltk.download('wordnet')
 lemmatizer = WordNetLemmatizer()
 
 # Load intent data from Categories.json
-intents = json.loads(open('mentis/Categories.json').read())
+intents = json.loads(open('Categories.json').read())
 
 # Initialize lists for words, classes, and documents
 words = []

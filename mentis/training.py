@@ -1,12 +1,13 @@
-import random
+import nltk
+from nltk.stem import WordNetLemmatizer
+lemmatizer = WordNetLemmatizer()
 import json
 import pickle
 import numpy as np
-import nltk
-from nltk.stem import WordNetLemmatizer
-from tensorflow.keras.models import Sequential
-from tensorflow.keras.layers import Dense, Activation, Dropout
-from tensorflow.keras.optimizers import SGD
+from keras.models import Sequential
+from keras.layers import Dense, Activation, Dropout
+from keras.optimizers.legacy import SGD
+import random
 
 # Download NLTK resources
 nltk.download('punkt')
@@ -80,7 +81,7 @@ model.add(Dropout(0.5))
 model.add(Dense(len(training_output[0]), activation='softmax'))
 
 # Compile the model
-sgd = SGD(learning_rate=0.01, momentum=0.5, nesterov=True)
+sgd = SGD(learning_rate=0.01,decay=1e-6, momentum=0.5, nesterov=True)
 model.compile(loss='categorical_crossentropy', optimizer=sgd, metrics=['accuracy'])
 
 # Train the model

@@ -1,200 +1,132 @@
 body {
-    margin: 0;
     font-family: Arial, sans-serif;
-    transition: background-color 0.4s, color 0.4s;
-    background-image: url('bg.png'); /* Add your background image path here */
-    background-size: cover;
-    background-blur: 10px; /* Add blur effect */
-    background-position: center;
-    background-attachment: fixed; /* Fixed background position */
-    background-repeat: no-repeat;
-    display: flex; /* Use flexbox to center the container vertically */
-    justify-content: center; /* Center horizontally */
-    align-items: center; /* Center vertically */
-    height: 100vh; /* Make the body take the full viewport height */
+    margin: 0;
+    padding: 0;
+    background-color: #f5f5f5;
+    display: flex;
+    flex-direction: column;
+    min-height: 100vh;
 }
 
 .chat-container {
-    max-width: 100%;
-    padding: 10px;
-    box-sizing: border-box;
-    background-color: rgba(255, 255, 255, 0.8); /* Light background overlay */
-    box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
-    transition: background-color 0.4s;
-    border-radius: 10px; /* Add rounded corners */
-}
-.chat-window {
-    height: 300px;
-    overflow-y: scroll;
-    border: 1px solid #ddd;
-    padding: 10px;
-    margin-bottom: 10px;
-}
-
-/* Rest of your CSS remains unchanged */
-/* ... */
-
-
-/* Updated styling for the top bar */
-.toggle-container {
+    flex-grow: 1;
+    background-color: #fff;
+    border-radius: 8px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
     display: flex;
-    justify-content: center;
-    align-items: center;
-    margin-top: 10px;
+    flex-direction: column;
 }
 
-.toggle-label {
-    margin-right: 10px;
-    font-weight: bold;
-}
-
-/* Styling for the dark mode toggle switch */
-.toggle-switch {
-    position: relative;
-    display: inline-block;
-    width: 40px;
-    height: 20px;
-    background-color: #ccc;
-    border-radius: 20px;
-}
-
-.toggle-slider {
-    position: absolute;
-    top: 0;
-    left: 0;
-    width: 50%;
-    height: 100%;
-    background-color: #007BFF;
-    border-radius: 20px;
-    transition: 0.4s;
-}
-
-/* Smaller size for the toggle switch */
-.toggle-switch {
-    width: 30px;
-    height: 15px;
-    margin-right: 10px;
-}
-
-/* Styling for the logo */
-.logo {
-    display: block;
-    margin: 10px auto;
-    max-width: 200px;
-}
-
-/* Updated styling for the chat window */
-.chat-window {
-    height: 200px;
-    overflow-y: scroll;
-    border: 1px solid #ddd;
+.top-bar {
+    background-color: #235f9f;
+    color: #fff;
     padding: 10px;
-    margin-bottom: 10px;
-    background-color: #f2f2f2;
-    color: #333;
-    border-radius: 5px;
-    transition: background-color 0.4s, color 0.4s;
+    text-align: center;
 }
 
-/* Updated styling for user and bot messages */
-.user-message {
-    background-color: #e2f7fe;
-    padding: 5px;
-    margin-bottom: 5px;
-    border-radius: 5px;
+h1 {
+    margin: 0;
+    font-size: 24px;
 }
 
-.bot-message {
-    background-color: #f2f2f2;
-    padding: 5px;
-    margin-bottom: 5px;
-    border-radius: 5px;
+.chat-window {
+    flex-grow: 1;
+    overflow-y: auto;
+    padding: 20px;
 }
 
-/* Updated styling for the input container */
 .input-container {
     display: flex;
     align-items: center;
-    background-color: #fff;
+    justify-content: space-between;
     padding: 10px;
     border-top: 1px solid #ddd;
-    transition: background-color 0.4s;
+    background-color: #f9f9f9;
 }
 
-/* Styling for the user input field */
 #user-input {
     flex-grow: 1;
     padding: 10px;
-    border: 1px solid #ccc;
-    border-radius: 5px;
-}
-
-/* Styling for the send button */
-#send-button {
-    padding: 10px 15px;
-    background-color: #007BFF;
-    color: #fff;
     border: none;
-    border-radius: 5px;
-    margin-left: 10px;
-    cursor: pointer;
-}
-
-/* Styling for the dark/light mode toggle */
-.toggle-container {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    margin-top: 10px;
-}
-
-/* Smaller size for the toggle switch */
-.toggle-switch {
-    width: 30px;
-    height: 15px;
+    border-radius: 20px;
+    outline: none;
     margin-right: 10px;
 }
 
-/* Styling for the text inside the toggle switch */
-.toggle-text {
-    font-size: 12px;
-    color: #555;
+#send-button {
+    background-color: #235f9f;
+    color: #fff;
+    border: none;
+    border-radius: 20px;
+    padding: 10px 20px;
+    cursor: pointer;
+}
+.dark-mode-toggle-label {
+    margin-right: 20px;
+    float: right;
+    margin-top: 8px;
 }
 
-/* Additional styling for mobile devices */
-@media screen and (max-width: 768px) {
-    .chat-container {
-        padding: 5px;
-    }
-    .toggle-switch {
-        width: 25px;
-        height: 12px;
-    }
-    .logo {
-        max-width: 100px;
-    }
+.switch {
+    position: relative;
+    display: inline-block;
+    width: 60px;
+    height: 34px;
+    float: right;
+    margin-right: 20px;
 }
 
-/* Dark mode for the entire page when body has dark-mode class */
-body.dark-mode {
-    background-color: #333 !important;
-    color: #fff !important;
+.switch input {
+    opacity: 0;
+    width: 0;
+    height: 0;
 }
 
-body.dark-mode .chat-container {
-    background-color: #444 !important;
+.slider {
+    position: absolute;
+    cursor: pointer;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-color: #ccc;
+    transition: 0.4s;
+    border-radius: 34px;
 }
 
-body.dark-mode .top-bar {
-    background-color: #333 !important;
+.slider:before {
+    position: absolute;
+    content: "";
+    height: 26px;
+    width: 26px;
+    left: 4px;
+    bottom: 4px;
+    background-color: white;
+    transition: 0.4s;
+    border-radius: 50%;
 }
 
-body.dark-mode .chat-window {
-    background-color: #555 !important;
-    color: #fff !important;
+input:checked + .slider {
+    background-color: #333;
 }
 
-body.dark-mode .input-container {
-    background-color: #444 !important;
-    border-top: 1px solid #333 !important;
+input:focus + .slider {
+    box-shadow: 0 0 1px #007BFF;
+}
+
+input:checked + .slider:before {
+    transform: translateX(26px);
+}
+.dark-mode {
+    background-color: #333; 
+    color: #fff; 
+}
+
+.logo {
+    max-width: 50px; 
+    height: auto;
+    margin: 10px; 
+    position: absolute; 
+    top: 10px; 
+    left: 10px; 
 }

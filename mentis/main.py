@@ -6,10 +6,12 @@ import nltk
 from nltk.stem import WordNetLemmatizer
 from tensorflow.keras.models import load_model
 
-from flask import Flask, request, jsonify, render_template  # Import render_template
+from flask import Flask, render_template, request, jsonify
+
+nltk.download('popular')
 
 app = Flask(__name__)
-app.config['DEBUG'] = True  # Enable debugging mode
+app.static_folder='static'
 
 # Initialize the WordNet lemmatizer
 lemmatizer = WordNetLemmatizer()
@@ -62,16 +64,13 @@ def getResponse(intentsList, intentsJson):
             break
     return result
 
-# Define a route to render the index.html file
-@app.route('/')
+@app.route("/")
 def index():
-    return render_template('index.html')
+    return render_template('templates/index.html')
 
-
-# Define an API route for receiving user messages and sending responses
-@app.route('/send_message', methods=['POST'])
-def send_message():
-    user_message = request.json['message']
+@app.route("/get")
+def chat():
+    user_message = request.form["msg"]
 
     # Use your existing code for processing user input and generating responses
     ints = predictClass(user_message)
@@ -79,12 +78,5 @@ def send_message():
 
     return jsonify({'response': bot_response})
 
-# Define an API route for training the chatbot (triggered manually or via an endpoint)
-@app.route('/train', methods=['POST'])
-def train_chatbot():
-    # Your training script (training.py) can be executed here
-    # Ensure the 'chatbot.h5' model file is saved upon completion
-    return jsonify({'message': 'Training initiated. Check logs for progress.'})
-
 if __name__ == '__main__':
-    app.run(debug=True)
+    app.run()

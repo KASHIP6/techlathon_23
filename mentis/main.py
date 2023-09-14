@@ -1,38 +1,15 @@
-#################################################################
-# Input from the user is taken. It is cleaned using NLP,         #
-# and then it is sent to the trained Neural Network model.      #
-# The model predicts the tag of that sentence, and then a       #
-# random response corresponding to that tag is returned to      #
-# the user.                                                      #
-#################################################################
-
 import random
 import json
 import pickle
 import numpy as np
-
 import nltk
 from nltk.stem import WordNetLemmatizer
-
 from tensorflow.keras.models import load_model
 
-from flask import Flask, request, jsonify
+from flask import Flask, request, jsonify, render_template  # Import render_template
 
 app = Flask(__name__)
-
-# Define an API route for receiving user messages and sending responses
-@app.route('/send_message', methods=['POST'])
-def send_message():
-    user_message = request.json['message']
-    
-    # Use your existing code for processing user input and generating responses
-    ints = predictClass(user_message)
-    bot_response = getResponse(ints, intents)
-    
-    return jsonify({'response': bot_response})
-
-if __name__ == '__main__':
-    app.run()
+app.config['DEBUG'] = True  # Enable debugging mode
 
 # Initialize the WordNet lemmatizer
 lemmatizer = WordNetLemmatizer()
@@ -40,11 +17,9 @@ lemmatizer = WordNetLemmatizer()
 # Load intent data from Categories.json
 intents = json.loads(open('Categories.json').read())
 
-# Load preprocessed data
+# Load preprocessed data, classes, and trained chatbot model
 words = pickle.load(open('words.pkl', 'rb'))
 classes = pickle.load(open('classes.pkl', 'rb'))
-
-# Load the trained chatbot model
 model = load_model('chatbot.h5')
 
 # Function to clean up a sentence using tokenization and lemmatization
@@ -87,11 +62,29 @@ def getResponse(intentsList, intentsJson):
             break
     return result
 
-print('Bot is Running !!')
+# Define a route to render the index.html file
+@app.route('/')
+def index():
+    return render_template('index.html')
 
-# A loop to interact with the chatbot in the console
-while True:
-    message = input("You: ")
-    ints = predictClass(message)
-    res = getResponse(ints, intents)
-    print('Grey:', res)
+
+# Define an API route for receiving user messages and sending responses
+@app.route('/send_message', methods=['POST'])
+def send_message():
+    user_message = request.json['message']
+
+    # Use your existing code for processing user input and generating responses
+    ints = predictClass(user_message)
+    bot_response = getResponse(ints, intents)
+
+    return jsonify({'response': bot_response})
+
+# Define an API route for training the chatbot (triggered manually or via an endpoint)
+@app.route('/train', methods=['POST'])
+def train_chatbot():
+    # Your training script (training.py) can be executed here
+    # Ensure the 'chatbot.h5' model file is saved upon completion
+    return jsonify({'message': 'Training initiated. Check logs for progress.'})
+
+if __name__ == '__main__':
+    app.run(debug=True)
